@@ -13,8 +13,6 @@ public class UserService {
 	@Autowired 
 	private UserRepo repo;
 	
-	
-	
 	public Users registerUser(Users user) {
 		// TODO Auto-generated method stub
 		return repo.save(user);
