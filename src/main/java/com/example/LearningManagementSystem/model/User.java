@@ -1,6 +1,9 @@
 package com.example.LearningManagementSystem.model;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -13,23 +16,24 @@ import lombok.Setter;
 @Setter
 @Entity
 @Table
-public class Users {
-	
-	@Id
-	@SequenceGenerator(
-		name ="user_sequence",
-		sequenceName="user_sequence",
-		allocationSize=1
-	)
-	@GeneratedValue(strategy=GenerationType.SEQUENCE,
-		generator="user_sequence"
-	)
-	private int user_id;
-	private String username;
-	private String password;
-	private String email;
-	
+public class User {
 
+	@Id
+	@SequenceGenerator(name = "user_sequence", sequenceName = "user_sequence", allocationSize = 1)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "user_sequence")
+	private Long user_id;
+	@Column(nullable = false)
+	private String username;
+
+	@Column(nullable = false)
+	private String password;
+
+	@Column(nullable = false, unique = true)
+	private String email;
+
+	@Enumerated(EnumType.STRING)
+	@Column(nullable = false)
+	private Role role;
 
 	@Override
 	public String toString() {
