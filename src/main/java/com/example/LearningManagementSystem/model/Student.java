@@ -11,8 +11,7 @@ import jakarta.persistence.Table;
 import lombok.Getter;
 import lombok.Setter;
 
-@Getter
-@Setter
+
 @Entity
 @Table
 public class Student {
@@ -38,7 +37,47 @@ public class Student {
         this.usn = usn;
         this.sem = sem;
     }
-    @ManyToOne
-    @JoinColumn(name = "department_id", nullable = false)
-    private Department department;
+    /*@ManyToOne
+    @JoinColumn(name = "department_id", nullable = true)
+    private Department department;*/
+
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
+
+	public Users getUser() {
+		return user;
+	}
+
+	public void setUser(Users user) {
+		this.user = user;
+	}
+
+	public String getUsn() {
+		return usn;
+	}
+
+	public void setUsn(String usn) {
+		this.usn = usn;
+	}
+
+	public Integer getSem() {
+		return sem;
+	}
+
+	public void setSem(Integer sem) {
+		this.sem = sem;
+	}
+
+	/*public Department getDepartment() {
+		return department;
+	}
+
+	public void setDepartment(Department department) {
+		this.department = department;*/
+	
 }
