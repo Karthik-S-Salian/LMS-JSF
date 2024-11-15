@@ -22,7 +22,7 @@ public class Student {
     @OneToOne
     @MapsId
     @JoinColumn(name = "id")
-    private User user;
+    private Users user;
 
     @Column(nullable = false, unique = true)
     private String usn;
@@ -33,7 +33,7 @@ public class Student {
     // Constructors
     public Student() {}
 
-    public Student(User user, String usn, Integer sem) {
+    public Student(Users user, String usn, Integer sem) {
         this.user = user;
         this.usn = usn;
         this.sem = sem;

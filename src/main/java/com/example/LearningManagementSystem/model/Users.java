@@ -17,7 +17,7 @@ import lombok.Setter;
 @Entity
 @Table
 
-public class User {
+public class Users {
 
 
 	@Id
@@ -30,7 +30,7 @@ public class User {
 	@Column(nullable = false)
 	private String password;
 
-	@Column(nullable = false, unique = true)
+	@Column(nullable = false)
 	private String email;
 
 	@Enumerated(EnumType.STRING)

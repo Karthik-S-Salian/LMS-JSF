@@ -21,7 +21,7 @@ public class Professor {
     @OneToOne
     @MapsId
     @JoinColumn(name = "id")
-    private User user;
+    private Users user;
 
 
     @Column(nullable = true)
