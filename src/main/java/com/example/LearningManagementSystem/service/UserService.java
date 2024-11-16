@@ -1,5 +1,7 @@
 package com.example.LearningManagementSystem.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 
 import org.springframework.stereotype.Service;
@@ -16,6 +18,8 @@ import com.example.LearningManagementSystem.repo.DepartmentRepo;
 import com.example.LearningManagementSystem.repo.ProfessorRepo;
 import com.example.LearningManagementSystem.repo.StudentRepo;
 import com.example.LearningManagementSystem.repo.UserRepo;
+
+import jakarta.persistence.EntityNotFoundException;
 
 @Service
 public class UserService {
@@ -91,6 +95,42 @@ public class UserService {
         department.setProfessor(professor); 
 
         deptRepo.save(department);
+	}
+
+	public List<Professor> getAllProfessors() {
+		// TODO Auto-generated method stub
+		return professorRepo.findAll();
+	}
+
+	public List<Student> getAllStudents() {
+		// TODO Auto-generated method stub
+		return sturepo.findAll();
+	}
+
+	public void deleteProfessor(Long id) {
+		// Find the professor by ID
+        Professor professor = professorRepo.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException("Professor not found"));
+
+        // Remove the associated user
+        Department dept = deptRepo.findByProfessor(professor);
+        if (dept != null) {
+            deptRepo.delete(dept);
+        }
+
+        // Delete the professor entry
+        professorRepo.delete(professor);
+		
+	}
+
+	public void deleteStudent(Long id) {
+		// Find the student by ID
+        Student student = sturepo.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException("Student not found"));
+
+        // Deleting the student will also delete the associated User due to cascading
+        sturepo.delete(student);
+		
 	}
 
 }
