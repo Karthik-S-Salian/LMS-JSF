@@ -8,9 +8,11 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.example.LearningManagementSystem.DTO.DepartmentDTO;
 import com.example.LearningManagementSystem.DTO.ProfessorDTO;
 import com.example.LearningManagementSystem.DTO.StudentDTO;
-import com.example.LearningManagementSystem.model.Student;
+
+
 import com.example.LearningManagementSystem.service.UserService;
 
 @RestController
@@ -22,11 +24,13 @@ public class AdminController {
 	
 	@PostMapping("/addStudent")
 	public ResponseEntity<String> addStudent(@RequestBody StudentDTO studentDTO) {
-        if (service.addStudent(studentDTO)) {
-            return ResponseEntity.status(HttpStatus.CREATED).body("Student added successfully");
-        } else {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Failed to add student");
-        }
+		try {
+			service.addStudent(studentDTO);
+			return ResponseEntity.status(HttpStatus.CREATED).body("Student added successfully!");
+		}catch (RuntimeException e) {
+			return ResponseEntity.badRequest().body(e.getMessage());
+		}
+		
     }
 	
 	@PostMapping("/addProfessor")
@@ -36,6 +40,16 @@ public class AdminController {
             return ResponseEntity.ok("Professor registered successfully!");
         } else {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Failed to register professor.");
+        }
+    }
+	
+	@PostMapping("/addDepartment")
+    public ResponseEntity<String> addDepartment(@RequestBody DepartmentDTO departmentDTO) {
+		try {
+            service.addDepartment(departmentDTO);
+            return ResponseEntity.ok("Department added successfully!");
+        } catch (RuntimeException e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
         }
     }
 }

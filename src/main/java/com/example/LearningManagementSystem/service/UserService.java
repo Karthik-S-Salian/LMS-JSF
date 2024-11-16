@@ -4,12 +4,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import org.springframework.stereotype.Service;
 
+import com.example.LearningManagementSystem.DTO.DepartmentDTO;
 import com.example.LearningManagementSystem.DTO.ProfessorDTO;
 import com.example.LearningManagementSystem.DTO.StudentDTO;
+import com.example.LearningManagementSystem.model.Department;
 import com.example.LearningManagementSystem.model.Professor;
 import com.example.LearningManagementSystem.model.Role;
 import com.example.LearningManagementSystem.model.Student;
 import com.example.LearningManagementSystem.model.Users;
+import com.example.LearningManagementSystem.repo.DepartmentRepo;
 import com.example.LearningManagementSystem.repo.ProfessorRepo;
 import com.example.LearningManagementSystem.repo.StudentRepo;
 import com.example.LearningManagementSystem.repo.UserRepo;
@@ -26,13 +29,16 @@ public class UserService {
 	@Autowired
 	private ProfessorRepo professorRepo;
 	
+	@Autowired
+	private DepartmentRepo deptRepo;
+	
 	public Users registerUser(Users user) {
 		// TODO Auto-generated method stub
 		return repo.save(user);
 		
 	}
 
-	public boolean addStudent(StudentDTO studentDTO) {
+	public void addStudent(StudentDTO studentDTO) {
 		// TODO Auto-generated method stub
 		Users user = new Users();
 		user.setUsername(studentDTO.getUsername());
@@ -41,14 +47,17 @@ public class UserService {
 	    user.setRole(Role.STUDENT);
 	    repo.save(user);
 	    
+	    Department department = deptRepo.findById(studentDTO.getDepartmentid())
+	            .orElseThrow(() -> new RuntimeException("Department not found"));
 	    Student student = new Student();
 	    student.setUser(user);
 	    
 	    student.setSem(studentDTO.getSem());
 	    student.setUsn(studentDTO.getUsn());
+	    student.setDepartment(department);
 	    sturepo.save(student);
 	    
-	    return true;
+	    
 	    
 	}
 	
@@ -67,6 +76,21 @@ public class UserService {
         professorRepo.save(professor); 
         
         return true;
+	}
+
+	public void addDepartment(DepartmentDTO departmentDTO) {
+		// TODO Auto-generated method stub
+		if (deptRepo.existsByName(departmentDTO.getName())) {
+            throw new RuntimeException("Department with this name already exists.");
+        }
+		Professor professor = professorRepo.findById(departmentDTO.getProfessorId())
+                .orElseThrow(() -> new RuntimeException("Professor not found."));
+		
+		Department department = new Department();
+        department.setName(departmentDTO.getName());
+        department.setProfessor(professor); 
+
+        deptRepo.save(department);
 	}
 
 }
