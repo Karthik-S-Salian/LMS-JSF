@@ -1,5 +1,8 @@
 package com.example.LearningManagementSystem.model;
 
+import java.util.HashSet;
+import java.util.Set;
+
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
@@ -9,6 +12,8 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
+import jakarta.persistence.JoinTable;
+import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.SequenceGenerator;
 import jakarta.persistence.Table;
@@ -39,5 +44,12 @@ public class Course {
     @JoinColumn(name = "professor_id", nullable = false)
     private Professor professor;
 
+    @ManyToMany
+    @JoinTable(
+        name = "enrollment", 
+        joinColumns = @JoinColumn(name = "course_id"), 
+        inverseJoinColumns = @JoinColumn(name = "student_id")
+    )
+    private Set<Student> students = new HashSet<>();
     // Constructors, Getters and Setters
 }

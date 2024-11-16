@@ -1,10 +1,14 @@
 package com.example.LearningManagementSystem.model;
 
+import java.util.HashSet;
+import java.util.Set;
+
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.MapsId;
 import jakarta.persistence.OneToOne;
@@ -37,6 +41,9 @@ public class Student {
     @ManyToOne
     @JoinColumn(name = "department_id", nullable = true)
     private Department department;
+    
+    @ManyToMany(mappedBy = "students")
+    private Set<Course> courses = new HashSet<>();
 
 	
 }
