@@ -112,11 +112,7 @@ public class UserService {
         Professor professor = professorRepo.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException("Professor not found"));
 
-        // Remove the associated user
-        /*Department dept = deptRepo.findByProfessor(professor);
-        if (dept != null) {
-            deptRepo.delete(dept);
-        }*/
+        
 
         // Delete the professor entry
         professorRepo.delete(professor);
