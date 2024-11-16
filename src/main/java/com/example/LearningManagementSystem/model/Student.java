@@ -9,9 +9,12 @@ import jakarta.persistence.MapsId;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-
+@Getter
+@Setter
+@NoArgsConstructor
 @Entity
 @Table
 public class Student {
@@ -29,55 +32,10 @@ public class Student {
     @Column(nullable = false)
     private Integer sem;
 
-    // Constructors
-    public Student() {}
-
-    public Student(Users user, String usn, Integer sem) {
-        this.user = user;
-        this.usn = usn;
-        this.sem = sem;
-    }
-    /*@ManyToOne
+    
+    @ManyToOne
     @JoinColumn(name = "department_id", nullable = true)
-    private Department department;*/
+    private Department department;
 
-	public Long getId() {
-		return id;
-	}
-
-	public void setId(Long id) {
-		this.id = id;
-	}
-
-	public Users getUser() {
-		return user;
-	}
-
-	public void setUser(Users user) {
-		this.user = user;
-	}
-
-	public String getUsn() {
-		return usn;
-	}
-
-	public void setUsn(String usn) {
-		this.usn = usn;
-	}
-
-	public Integer getSem() {
-		return sem;
-	}
-
-	public void setSem(Integer sem) {
-		this.sem = sem;
-	}
-
-	/*public Department getDepartment() {
-		return department;
-	}
-
-	public void setDepartment(Department department) {
-		this.department = department;*/
 	
 }
