@@ -13,11 +13,13 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.example.LearningManagementSystem.DTO.CourseDTO;
 import com.example.LearningManagementSystem.DTO.DepartmentDTO;
 import com.example.LearningManagementSystem.DTO.ProfessorDTO;
 import com.example.LearningManagementSystem.DTO.StudentDTO;
 import com.example.LearningManagementSystem.model.Professor;
 import com.example.LearningManagementSystem.model.Student;
+import com.example.LearningManagementSystem.service.CourseService;
 import com.example.LearningManagementSystem.service.UserService;
 
 @RestController
@@ -27,6 +29,8 @@ public class AdminController {
 	@Autowired
 	private UserService service;
 	
+	@Autowired
+	private CourseService courseService;
 	@PostMapping("/addStudent")
 	public ResponseEntity<String> addStudent(@RequestBody StudentDTO studentDTO) {
 		try {
@@ -77,5 +81,16 @@ public class AdminController {
     public ResponseEntity<String> deleteStudent(@PathVariable Long id) {
         service.deleteStudent(id);
         return ResponseEntity.ok("Student deleted successfully.");
+    }
+	
+	//create course 
+	@PostMapping("/course")
+    public ResponseEntity<String> createCourse(@RequestBody CourseDTO courseDTO) {
+		try {
+            courseService.createCourse(courseDTO);
+            return ResponseEntity.ok("Course assigned successfully!");
+        } catch (RuntimeException e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
     }
 }
