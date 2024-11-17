@@ -1,5 +1,7 @@
 package com.example.LearningManagementSystem.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -12,6 +14,8 @@ import com.example.LearningManagementSystem.repo.CourseRepo;
 import com.example.LearningManagementSystem.repo.DepartmentRepo;
 import com.example.LearningManagementSystem.repo.ProfessorRepo;
 import com.example.LearningManagementSystem.repo.StudentRepo;
+
+import jakarta.persistence.EntityNotFoundException;
 
 @Service
 public class CourseService {
@@ -59,6 +63,20 @@ public class CourseService {
         // Save the updated entities
         courseRepo.save(course);
         stuRepo.save(student);
+		
+	}
+
+	public List<Course> getAllCourses() {
+		// TODO Auto-generated method stub
+		return courseRepo.findAll();
+	}
+
+	public void deleteCourse(Long id) {
+		// TODO Auto-generated method stub
+		Course course = courseRepo.findById(id)
+					.orElseThrow(() -> new EntityNotFoundException("Course not found"));
+		
+		courseRepo.delete(course);
 		
 	}
 

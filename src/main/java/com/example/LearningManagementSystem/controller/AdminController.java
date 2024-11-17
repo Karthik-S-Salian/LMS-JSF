@@ -18,6 +18,7 @@ import com.example.LearningManagementSystem.DTO.CourseDTO;
 import com.example.LearningManagementSystem.DTO.DepartmentDTO;
 import com.example.LearningManagementSystem.DTO.ProfessorDTO;
 import com.example.LearningManagementSystem.DTO.StudentDTO;
+import com.example.LearningManagementSystem.model.Course;
 import com.example.LearningManagementSystem.model.Professor;
 import com.example.LearningManagementSystem.model.Student;
 import com.example.LearningManagementSystem.service.CourseService;
@@ -107,4 +108,17 @@ public class AdminController {
 		
        
     }
+	
+	//get all courses
+	@GetMapping("/courses")
+	public List<Course> getAllCourses(){
+		return courseService.getAllCourses();
+	}
+	
+	//delete a course
+	@DeleteMapping("/course/{id}")
+	public ResponseEntity<String> deleteCourse(@PathVariable Long id){
+		courseService.deleteCourse(id);
+		return ResponseEntity.ok("Course deleted successfully.");
+	}
 }
