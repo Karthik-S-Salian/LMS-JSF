@@ -3,7 +3,7 @@ package com.example.LearningManagementSystem.service;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.example.LearningManagementSystem.DTO.DepartmentDTO;
@@ -36,8 +36,11 @@ public class UserService {
 	@Autowired
 	private DepartmentRepo deptRepo;
 	
+	private BCryptPasswordEncoder encoder= new BCryptPasswordEncoder(10);
+	
 	public Users registerUser(Users user) {
 		// TODO Auto-generated method stub
+		user.setPassword(encoder.encode(user.getPassword()));  //store the BCrypt password
 		return repo.save(user);
 		
 	}

@@ -8,4 +8,6 @@ import com.example.LearningManagementSystem.model.Users;
 @Repository
 public interface UserRepo extends JpaRepository<Users,Long>{
 
+	Users findByUsername(String username);
+
 }
