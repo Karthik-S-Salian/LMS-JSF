@@ -66,10 +66,7 @@ public class CourseService {
 		
 	}
 
-	public List<Course> getAllCourses() {
-		// TODO Auto-generated method stub
-		return courseRepo.findAll();
-	}
+	
 
 	public void deleteCourse(Long id) {
 		// TODO Auto-generated method stub
@@ -78,6 +75,11 @@ public class CourseService {
 		
 		courseRepo.delete(course);
 		
+	}
+
+	public List<Course> getAllCourses() {
+		// TODO Auto-generated method stub
+		return courseRepo.findAll();
 	}
 
 }
