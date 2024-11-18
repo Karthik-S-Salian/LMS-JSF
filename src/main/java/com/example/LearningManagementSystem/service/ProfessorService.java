@@ -81,6 +81,11 @@ public class ProfessorService {
 		
 		return courseRepo.findCourseNamesByProfessor(professor);
 	}
+
+	public List<String> getNotesByCourseId(Long courseId) {
+		// TODO Auto-generated method stub
+		return notesRepo.findNotesByCourseId(courseId);
+	}
 	
 	
 

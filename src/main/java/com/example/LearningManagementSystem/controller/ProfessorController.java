@@ -84,5 +84,16 @@ public class ProfessorController {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
     }
+	
+	@GetMapping("/notes/{courseId}")
+	public ResponseEntity<List<String>> getNoteDescriptionsByCourseId(@PathVariable Long courseId) {
+	    List<String> noteDescriptions = professorService.getNotesByCourseId(courseId);
+	    
+	    if (noteDescriptions.isEmpty()) {
+	        return ResponseEntity.noContent().build();
+	    }
+	    
+	    return ResponseEntity.ok(noteDescriptions);
+	}
 	 
 }
