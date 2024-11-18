@@ -49,7 +49,7 @@ public class UserService {
 		// TODO Auto-generated method stub
 		Users user = new Users();
 		user.setUsername(studentDTO.getUsername());
-		user.setPassword(studentDTO.getPassword());
+		user.setPassword(encoder.encode(studentDTO.getPassword()));
 		user.setEmail(studentDTO.getEmail());        
 	    user.setRole(Role.STUDENT);
 	    repo.save(user);
@@ -72,7 +72,7 @@ public class UserService {
 		Users user = new Users();
         user.setUsername(professorDTO.getUsername());
         user.setEmail(professorDTO.getEmail());
-        user.setPassword(professorDTO.getPassword());
+        user.setPassword(encoder.encode(professorDTO.getPassword()));
         user.setRole(Role.PROFESSOR); 
         repo.save(user);
         

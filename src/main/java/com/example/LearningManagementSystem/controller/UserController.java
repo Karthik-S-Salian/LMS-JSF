@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.example.LearningManagementSystem.model.Users;
 import com.example.LearningManagementSystem.service.UserService;
 
-import jakarta.servlet.http.HttpServletRequest;
+
 
 @RestController
 public class UserController {
@@ -22,10 +22,7 @@ public class UserController {
 	public String greet() {
 		return "Hello";
 	}
-	/*@GetMapping("/csrf-token")
-	public CsrfToken getCsrfToken(HttpServletRequest request) {
-		return (CsrfToken) request.getAttribute("_csrf");
-	}*/
+	
 	@PostMapping("/register")
 	public Users register(@RequestBody Users user) {
 		

@@ -30,6 +30,9 @@ public class SecurityConfig {
 		
 		http.authorizeHttpRequests(auth -> auth
 	            .requestMatchers("/register","/login").permitAll() // Allow access to registration endpoint
+	            .requestMatchers("/admin/**").hasAuthority("ADMIN") // Accessible only to ADMIN
+	            .requestMatchers("/student/**").hasAuthority("STUDENT") // Accessible only to STUDENT
+	            .requestMatchers("/professor/**").hasAuthority("PROFESSOR") // Accessible only to PROFESSOR
 	            .anyRequest().authenticated() // All other requests require authentication
 	        );
 
