@@ -70,7 +70,7 @@ public class ProfessorService {
         Notes notes = new Notes();
         notes.setCourse(course);
         notes.setPath(filePath.toString());
-        notes.setDescription(description);
+        notes.setDescription(file.getOriginalFilename());
         return notesRepo.save(notes);
 		
 	}
