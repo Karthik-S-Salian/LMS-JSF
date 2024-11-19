@@ -9,14 +9,21 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.SequenceGenerator;
 import jakarta.persistence.Table;
+import lombok.AllArgsConstructor;
+import lombok.Data;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
+
 
 @Getter
 @Setter
+@NoArgsConstructor
 @Entity
 @Table
-public class User {
+
+public class Users {
+
 
 	@Id
 	@SequenceGenerator(name = "user_sequence", sequenceName = "user_sequence", allocationSize = 1)
@@ -35,9 +42,13 @@ public class User {
 	@Column(nullable = false)
 	private Role role;
 
+	
+
 	@Override
 	public String toString() {
 		return "Users [user_id=" + user_id + ", username=" + username + ", password=" + password + ", email=" + email
 				+ "]";
 	}
+
+	
 }

@@ -1,28 +1,35 @@
 package com.example.LearningManagementSystem.model;
 
+import java.util.HashSet;
+import java.util.Set;
+
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.MapsId;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Getter
 @Setter
+@NoArgsConstructor
 @Entity
 @Table
 public class Student {
     @Id
     private Long id;
 
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
     @MapsId
     @JoinColumn(name = "id")
-    private User user;
+    private Users user;
 
     @Column(nullable = false, unique = true)
     private String usn;
@@ -30,15 +37,13 @@ public class Student {
     @Column(nullable = false)
     private Integer sem;
 
-    // Constructors
-    public Student() {}
-
-    public Student(User user, String usn, Integer sem) {
-        this.user = user;
-        this.usn = usn;
-        this.sem = sem;
-    }
+    
     @ManyToOne
-    @JoinColumn(name = "department_id", nullable = false)
+    @JoinColumn(name = "department_id", nullable = true)
     private Department department;
+    
+    @ManyToMany(mappedBy = "students")
+    private Set<Course> courses = new HashSet<>();
+
+	
 }
