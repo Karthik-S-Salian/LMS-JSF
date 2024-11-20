@@ -22,6 +22,7 @@ import com.example.LearningManagementSystem.service.CourseService;
 import com.example.LearningManagementSystem.service.StudentService;
 
 @Controller
+@RequestMapping("/student")
 public class StudentController {
 
     @Autowired
