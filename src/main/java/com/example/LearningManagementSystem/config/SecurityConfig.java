@@ -22,6 +22,11 @@ public class SecurityConfig {
 	@Autowired
 	private UserDetailsService userDetailsService;
 	
+	private final CustomAuthenticationSuccessHandler customAuthenticationSuccessHandler;
+
+    public SecurityConfig(CustomAuthenticationSuccessHandler customAuthenticationSuccessHandler) {
+        this.customAuthenticationSuccessHandler = customAuthenticationSuccessHandler;
+    }
 	@Bean
 	public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
 		
@@ -37,7 +42,10 @@ public class SecurityConfig {
 	        );
 
 		
-		http.formLogin(Customizer.withDefaults());  //Enables  spring security built in Form-Based Login and use the credentials to validate the user
+		//http.formLogin(Customizer.withDefaults());  //Enables  spring security built in Form-Based Login and use the credentials to validate the user
+		http.formLogin(form -> form
+	            .successHandler(customAuthenticationSuccessHandler) // Use the custom success handler
+	        );
 		http.httpBasic(Customizer.withDefaults()); //to enable  REST API access using postman
 		
 		//http.sessionManagement(session->session.sessionCreationPolicy(SessionCreationPolicy.STATELESS)); //makes http stateless By setting SessionCreationPolicy.STATELESS, 
