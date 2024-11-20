@@ -70,19 +70,6 @@ public class ProfessorController {
         return "professor/index";
     }
 
-    // @GetMapping("/courses/{courseId}")
-    // public ResponseEntity<List<String>>
-    // getNoteDescriptionsByCourseId(@PathVariable Long courseId) {
-    // List<String> noteDescriptions =
-    // professorService.getNotesByCourseId(courseId);
-
-    // if (noteDescriptions.isEmpty()) {
-    // return ResponseEntity.noContent().build();
-    // }
-
-    // return ResponseEntity.ok(noteDescriptions);
-    // }
-
     @GetMapping("/courses/{id}")
     public String course(@PathVariable Long id, Model model) {
         model.addAttribute("course", courseService.getCourse(id));

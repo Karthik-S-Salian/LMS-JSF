@@ -3,6 +3,9 @@ package com.example.LearningManagementSystem.model;
 import java.util.HashSet;
 import java.util.Set;
 
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
+
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -37,11 +40,11 @@ public class Student {
     @Column(nullable = false)
     private Integer sem;
 
-    
     @ManyToOne
     @JoinColumn(name = "department_id", nullable = true)
     private Department department;
     
-    @ManyToMany(mappedBy = "students")
+    @ManyToMany(mappedBy = "students", cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    @OnDelete(action = OnDeleteAction.CASCADE)
     private Set<Course> courses = new HashSet<>();
 }

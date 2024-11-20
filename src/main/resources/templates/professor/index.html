@@ -21,7 +21,7 @@
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 w-full min-h-screen">
             <!-- Iterate over the list of courses -->
             <div th:each="course, iterStat : ${courses}" class="p-20">
-                <a th:href="@{'professor/courses/' + ${course.id}}">
+                <a th:href="@{'/professor/courses/' + ${course.id}}">
                     <div class="bg-white p-6 rounded-lg shadow-lg flex gap-2 items-center justify-start">
                         <span th:text="${iterStat.index + 1}" >1</span>
                         <h2 class="text-2xl font-bold mb-2 text-gray-800 uppercase" th:text="${course.name}">Course Title</h2>
