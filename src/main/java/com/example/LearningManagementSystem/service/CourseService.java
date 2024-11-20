@@ -95,4 +95,13 @@ public class CourseService {
 	public List<Notes> getCourseNotes(Long id){
 		return notesRepo.findNotesByCourseId(id);
 	}
+
+
+	public List<Student> getStudentsByCourseId(Long courseId) {
+        return courseRepo.findStudentsByCourseId(courseId);
+    }
+
+	public List<Course> getCoursesByStudentId(Long studentId) {
+        return courseRepo.findCoursesByStudentId(studentId);
+    }
 }

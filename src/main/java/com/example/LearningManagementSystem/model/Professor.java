@@ -29,7 +29,4 @@ public class Professor {
 
     @Column(nullable = true)
     private String grade;
-
-    
-
 }

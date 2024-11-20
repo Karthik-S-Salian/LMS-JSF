@@ -1,0 +1,40 @@
+<!-- src/main/resources/templates/contact.html -->
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LMS</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <title>Contact Page</title>
+</head>
+
+<body class="max-w-full w-screen">
+
+    <!-- Include Header Fragment -->
+    <div th:replace="~{fragments/header}"></div>
+
+    <!-- Page-specific content -->
+    <main class="mt-12 w-full bg-blue-100 px-[5%] py-8">
+        <h2 class="text-2xl font-bold">Profile</h2>
+
+        <div class="flex flex-col gap-4">
+            <div>
+                <strong>Name:</strong>
+                <p th:text="${professor.user.username}">name</p>
+            </div>
+
+            <div>
+                <strong>Level:</strong>
+                <p th:text="${professor.grade}">name</p>
+            </div>
+        </div>
+    </main>
+
+    <!-- Include Footer Fragment -->
+    <div th:replace="~{fragments/footer}"></div>
+
+</body>
+
+</html>

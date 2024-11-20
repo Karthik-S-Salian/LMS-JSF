@@ -44,7 +44,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr th:each="student, iterStat : ${students}">
+                    <tr th:each="student, iterStat : ${enrolledStudents}">
                         <td class="p-4" th:text="${iterStat.index + 1}">1</td>
                         <td class="p-4" th:text="${student.user.username}">Username</td>
                         <td class="p-4" th:text="${student.user.email}">Email</td>
@@ -56,11 +56,11 @@
             </table>
 
             <!-- Form to Add New Student -->
-            <form th:object="${enrollForm}" action="@{'/admin/courses/{id}/enroll(id=${course.id})'}" method="post"
+            <form th:object="${enrollForm}" action="/admin/courses/enroll/" method="post"
                 class="flex flex-col gap-4 mt-10 mx-auto max-w-[500px]">
                 <h3 class="text-3xl font-bold">Enroll Student</h3>
 
-                <input type="text" name="name" th:field="*{courseId}" value="${course.id}" />
+                <input name="courseId" th:value="${course.id}" hidden/>
 
                 <label class="flex flex-col gap-2">
                     <span class="font-semibold">Choose Student</span>

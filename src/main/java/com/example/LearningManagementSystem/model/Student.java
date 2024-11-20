@@ -44,6 +44,4 @@ public class Student {
     
     @ManyToMany(mappedBy = "students")
     private Set<Course> courses = new HashSet<>();
-
-	
 }

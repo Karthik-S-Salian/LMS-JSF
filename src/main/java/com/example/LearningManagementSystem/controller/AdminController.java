@@ -127,13 +127,15 @@ public class AdminController {
 	public String deleteCourse(Model model, @PathVariable Long id) {
 		model.addAttribute("enrollForm", new EnrollDTO());
 		model.addAttribute("course", courseService.getCourse(id));
-		model.addAttribute("students", studentService.getAllStudents());
+		model.addAttribute("enrolledStudents", courseService.getStudentsByCourseId(id));
+		model.addAttribute("students", studentService.getStudentsNotEnrolledInCourse(id));
 		return "admin/course";
 	}
 
-	@PostMapping("/courses/{id}/enroll")
-	public String enrollStudentInCourse(@ModelAttribute EnrollDTO enrollDTO, @PathVariable Long id) {
+	@PostMapping("/courses/enroll/")
+	public String enrollStudentInCourse(@ModelAttribute EnrollDTO enrollDTO) {
+		System.out.println(enrollDTO.getStudentId() + enrollDTO.getCourseId());
 		courseService.enrollStudentInCourse(enrollDTO.getStudentId(), enrollDTO.getCourseId());
-		return "redirect:/admin/" + id;
+		return "redirect:/admin/courses/" + enrollDTO.getCourseId();
 	}
 }

@@ -1,0 +1,47 @@
+#installing wsl if not installed
+
+# open terminal
+wsl --install
+
+reboot
+
+#open wsl and set username and password
+
+#installing ns gedit tcl
+
+sudo apt update
+sudo apt install tcl ns2 gedit
+
+
+# (optional) if gedit takes too long to open
+sudo apt remove xdg-desktop-portal
+
+#installing nam
+
+download appropriate deb file from here (if u don't get download ubuntu amd 64)
+https://www.linuxquestions.org/questions/linux-newbie-8/ns-stop-couldn%27t-execute-nam-permission-denied-while-executing-exec-nam-4175524760/#2
+
+#run this command in the folder containing deb file
+$sudo dpkg --install nam_1.14_amd64.deb
+
+#installing xgraph
+
+sudo apt install libgtk2.0-0
+
+download appropriate xgraph zip file (probably 64 bit)
+https://www.xgraph.org/linux/index.html
+
+#unzip the file and paste in ubuntu -> home/username directory (anywhere if u know what ur doing)
+cd ~
+gedit .bashrc
+
+# get the absolute path of bin/xgraph file in that extracted zip file
+# at last of bashrc file write
+alias xgraph=/home/karthik/ns/xgraph/bin/xgraph      (this is in my machine for urs path may be different)
+
+
+
+ 
+
+
+

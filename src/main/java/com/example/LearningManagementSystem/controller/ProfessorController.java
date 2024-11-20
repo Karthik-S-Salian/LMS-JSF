@@ -1,10 +1,7 @@
 package com.example.LearningManagementSystem.controller;
 
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -32,18 +29,14 @@ public class ProfessorController {
     private ProfessorService professorService;
 
     @GetMapping("/profile")
-    @ResponseBody
-    public ResponseEntity<?> getProfessorProfile(Authentication authentication) {
-        // Get the username of the authenticated professor
+    public String getProfessorProfile(Authentication authentication, Model model) {
         String username = authentication.getName();
-        System.out.println(username);
-        // Retrieve the professor details from the database
         Professor professor = professorService.getProfessorByUsername(username);
         if (professor == null) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Professor not found");
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Course not found");
         }
-
-        return ResponseEntity.ok(professor);
+        model.addAttribute("professor", professor);
+        return "professor/profile";
     }
 
     @PostMapping("/upload")
@@ -57,7 +50,7 @@ public class ProfessorController {
         } catch (Exception e) {
             model.addAttribute("message", "File upload failed: " + e.getMessage());
         }
-        return "redirect:/professor/courses/"+courseId;
+        return "redirect:/professor/courses/" + courseId;
     }
 
     // get all the courses assigned to the professor
@@ -78,14 +71,16 @@ public class ProfessorController {
     }
 
     // @GetMapping("/courses/{courseId}")
-    // public ResponseEntity<List<String>> getNoteDescriptionsByCourseId(@PathVariable Long courseId) {
-    //     List<String> noteDescriptions = professorService.getNotesByCourseId(courseId);
+    // public ResponseEntity<List<String>>
+    // getNoteDescriptionsByCourseId(@PathVariable Long courseId) {
+    // List<String> noteDescriptions =
+    // professorService.getNotesByCourseId(courseId);
 
-    //     if (noteDescriptions.isEmpty()) {
-    //         return ResponseEntity.noContent().build();
-    //     }
+    // if (noteDescriptions.isEmpty()) {
+    // return ResponseEntity.noContent().build();
+    // }
 
-    //     return ResponseEntity.ok(noteDescriptions);
+    // return ResponseEntity.ok(noteDescriptions);
     // }
 
     @GetMapping("/courses/{id}")

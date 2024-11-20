@@ -11,6 +11,7 @@
 </head>
 
 <body>
+
     <!-- Include Header Fragment -->
     <div th:replace="~{fragments/header}"></div>
 
@@ -33,29 +34,7 @@
             </ol>
 
         </div>
-
-        <form method="POST" enctype="multipart/form-data" th:action="@{/professor/upload}"
-            class="flex flex-col gap-4 mt-10 mx-auto max-w-[500px]">
-            <h3 class="text-3xl font-bold">Upload notes</h3>
-
-            <label class="flex flex-col gap-2">
-                <span class="font-semibold">Select File:</span>
-                <input type="file" id="file" name="file" required
-                    class="border border-red-300 shadow p-3 w-full rounded" />
-            </label>
-
-            <input name="courseId" th:value="${course.id}" hidden/>
-
-            <label class="flex flex-col gap-2">
-                <span class="font-semibold">description</span>
-                <textarea id="description" name="description" rows="4" cols="50" required
-                    class="border border-red-300 shadow p-3 w-full rounded"></textarea>
-            </label>
-
-            <button class="bg-blue-700 px-4 py-2 rounded mx-auto text-white">Upload</button>
-        </form>
     </main>
-
     <!-- Include Footer Fragment -->
     <div th:replace="~{fragments/footer}"></div>
 

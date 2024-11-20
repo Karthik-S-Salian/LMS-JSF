@@ -62,4 +62,8 @@ public class StudentService {
 	public List<Student> getAllStudents() {
 		return studentRepo.findAll();
 	}
+
+	public List<Student> getStudentsNotEnrolledInCourse(Long courseId) {
+        return studentRepo.findStudentsNotEnrolledInCourse(courseId);
+    }
 }
