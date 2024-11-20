@@ -1,0 +1,56 @@
+<!-- src/main/resources/templates/contact.html -->
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LMS</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <title>Contact Page</title>
+</head>
+
+<body>
+
+    <!-- Include Header Fragment -->
+    <div th:replace="~{fragments/header}"></div>
+
+    <main class="mt-12 w-full bg-blue-100 px-[5%] py-8 min-h-screen">
+        <div>
+            <div>
+                <span class="text-xl font-semibold">Course: </span>
+                <span th:text="${course.name}" class="capitalize">course name</span>
+            </div>
+        </div>
+        <div>
+            <h4 class="text-2xl font-semibold">Notes</h4>
+            <ol class="flex flex-col gap-4">
+                <li th:each="note, iterStat : ${notes}" class="p-20 bg-blue-100">
+                    <a th:href="@{'/student/' + ${note.id}}" th:text="${note.description}">
+                        Notes
+                    </a>
+                </li>
+            </ol>
+        </div>
+
+        <form method="POST" enctype="multipart/form-data" th:action="@{/professor/upload}">
+            <h2 class="text-3xl font-semibold">Upload notes</h2>
+
+            <label for="file">Select File:</label>
+            <input type="file" id="file" name="file" required /><br><br>
+
+            <input type="text" name="courseId" th:value="${course.id}" hidden />
+
+            <label for="description">Description:</label>
+            <textarea id="description" name="description" rows="4" cols="50" required></textarea><br><br>
+
+            <button type="submit">Upload</button>
+        </form>
+    </main>
+
+    <!-- Include Footer Fragment -->
+    <div th:replace="~{fragments/footer}"></div>
+
+</body>
+
+</html>

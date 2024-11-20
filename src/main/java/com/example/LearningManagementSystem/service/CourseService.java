@@ -8,10 +8,12 @@ import org.springframework.stereotype.Service;
 import com.example.LearningManagementSystem.DTO.CourseDTO;
 import com.example.LearningManagementSystem.model.Course;
 import com.example.LearningManagementSystem.model.Department;
+import com.example.LearningManagementSystem.model.Notes;
 import com.example.LearningManagementSystem.model.Professor;
 import com.example.LearningManagementSystem.model.Student;
 import com.example.LearningManagementSystem.repo.CourseRepo;
 import com.example.LearningManagementSystem.repo.DepartmentRepo;
+import com.example.LearningManagementSystem.repo.NotesRepo;
 import com.example.LearningManagementSystem.repo.ProfessorRepo;
 import com.example.LearningManagementSystem.repo.StudentRepo;
 
@@ -31,6 +33,9 @@ public class CourseService {
 	
 	@Autowired
 	private StudentRepo stuRepo;
+
+	@Autowired
+	private NotesRepo notesRepo;
 	
 	public void createCourse(CourseDTO courseDTO) {
 		// TODO Auto-generated method stub
@@ -82,4 +87,12 @@ public class CourseService {
 		return courseRepo.findAll();
 	}
 
+
+	public Course getCourse(Long id){
+		return courseRepo.getReferenceById(id);
+	}
+
+	public List<Notes> getCourseNotes(Long id){
+		return notesRepo.findNotesByCourseId(id);
+	}
 }

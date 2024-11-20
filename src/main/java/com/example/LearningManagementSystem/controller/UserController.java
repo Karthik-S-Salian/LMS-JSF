@@ -10,22 +10,15 @@ import org.springframework.web.bind.annotation.RestController;
 import com.example.LearningManagementSystem.model.Users;
 import com.example.LearningManagementSystem.service.UserService;
 
-
-
 @RestController
 public class UserController {
 
-	@Autowired
-	private UserService service;
+    @Autowired
+    private UserService service;
 
-	@GetMapping("/")
-	public String greet() {
-		return "Hello";
-	}
-	
-	@PostMapping("/register")
-	public Users register(@RequestBody Users user) {
-		
-		return service.registerUser(user);
-	}
+    @PostMapping("/register")
+    public Users register(@RequestBody Users user) {
+
+        return service.registerUser(user);
+    }
 }

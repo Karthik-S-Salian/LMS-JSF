@@ -13,7 +13,7 @@ import com.example.LearningManagementSystem.model.Professor;
 @Repository
 public interface CourseRepo extends JpaRepository<Course,Long>{
 
-	@Query("SELECT c.name FROM Course c WHERE c.professor = :professor")
-    List<String> findCourseNamesByProfessor(@Param("professor") Professor professor);
+	@Query("SELECT c FROM Course c WHERE c.professor = :professor")
+    List<Course> findCourseByProfessor(@Param("professor") Professor professor);
 
 }

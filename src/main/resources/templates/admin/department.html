@@ -1,0 +1,79 @@
+<!-- src/main/resources/templates/contact.html -->
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LMS</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <title>Contact Page</title>
+</head>
+
+<body>
+
+    <!-- Include Header Fragment -->
+    <div th:replace="~{fragments/header}"></div>
+
+    <main class="mt-12 w-full flex">
+        <div th:replace="~{fragments/sidebar}"></div>
+        <div class="flex-grow p-4">
+
+            <h1 class="text-xl font-bold">Departments</h1>
+
+            <table class="table-auto w-full bg-blue-100">
+                <thead class="bg-blue-300 text-white">
+                    <tr>
+                        <th class="p-4 text-left">#</th>
+                        <th class="p-4 text-left">Department Name</th>
+                        <th class="p-4 text-left">Head of Department</th>
+                        <th class="p-4 text-left">Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="department, iterStat : ${departments}">
+                        <td class="p-4" th:text="${iterStat.index + 1}">1</td>
+                        <td class="p-4" th:text="${department.name}">Department Name</td>
+                        <td class="p-4" th:text="${department.professor.user.username}">Head of Department</td>
+                        <td class="p-4">
+                            <!-- Delete Form -->
+                            <form th:action="@{/admin/departments/{id}(id=${department.id})}" method="post">
+                                <input type="hidden" name="_method" value="delete" />
+                                <button type="submit" class="bg-red-500 text-white px-4 py-2 rounded">Delete</button>
+                            </form>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            
+        
+            <form th:object="${departmentForm}" action="/admin/addDepartment" method="post" class="flex flex-col gap-4 mt-10 max-w-[500px] mx-auto">
+                <h3 class="text-3xl font-bold ">Add New Department</h3>
+
+                <label class="flex flex-col gap-2">
+                    <span class="font-semibold">Name</span>
+                    <input type="text" name="name" th:field="*{name}" class="border border-red-300 shadow p-3 w-full rounded"  >
+                </label>
+
+                <label class="flex flex-col gap-2">
+
+                    <span class="font-semibold">Choose Head of Department</span>
+                    <select name="professorId" th:field="*{professorId}" class="border border-red-300 shadow p-3 w-full rounded">
+                        <option th:each="professor : ${professors}" th:value="${professor.id}"
+                            th:text="${professor.user.username}">
+                        </option>
+                    </select>
+                </label>
+
+                <button class="bg-blue-700 px-4 py-2 rounded mx-auto text-white">Add Department</button>
+            </form>
+        </div>
+    </main>
+
+
+    <!-- Include Footer Fragment -->
+    <div th:replace="~{fragments/footer}"></div>
+
+</body>
+
+</html>

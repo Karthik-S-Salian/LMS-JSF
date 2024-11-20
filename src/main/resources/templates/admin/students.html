@@ -1,0 +1,108 @@
+<!-- src/main/resources/templates/contact.html -->
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LMS</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <title>Contact Page</title>
+</head>
+
+<body>
+
+    <!-- Include Header Fragment -->
+    <div th:replace="~{fragments/header}"></div>
+
+    <main class="mt-12 w-full flex">
+        <div th:replace="~{fragments/sidebar}"></div>
+        <div class="flex-grow p-4">
+            <h1 class="text-xl font-bold">Students</h1>
+
+            <table class="table-auto w-full bg-blue-100">
+                <thead class="bg-blue-300 text-white">
+                    <tr>
+                        <th class="p-4 text-left">#</th>
+                        <th class="p-4 text-left">Username</th>
+                        <th class="p-4 text-left">Email</th>
+                        <th class="p-4 text-left">USN</th>
+                        <th class="p-4 text-left">Semester</th>
+                        <th class="p-4 text-left">Department</th>
+                        <th class="p-4 text-left">Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="student, iterStat : ${students}">
+                        <td class="p-4" th:text="${iterStat.index + 1}">1</td>
+                        <td class="p-4" th:text="${student.user.username}">Username</td>
+                        <td class="p-4" th:text="${student.user.email}">Email</td>
+                        <td class="p-4" th:text="${student.usn}">USN</td>
+                        <td class="p-4" th:text="${student.sem}">Semester</td>
+                        <td class="p-4" th:text="${student.department.name}">Department</td>
+                        <td class="p-4">
+                            <!-- Delete Form -->
+                            <form th:action="@{/admin/students/{id}(id=${student.id})}" method="post">
+                                <input type="hidden" name="_method" value="delete" />
+                                <button type="submit" class="bg-red-500 text-white px-4 py-2 rounded">Delete</button>
+                            </form>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <!-- Form to Add New Student -->
+            <form th:object="${studentForm}" action="/admin/addStudent" method="post"
+                class="flex flex-col gap-4 mt-10 mx-auto max-w-[500px]">
+                <h3 class="text-3xl font-bold">Add New Student</h3>
+
+                <label class="flex flex-col gap-2">
+                    <span class="font-semibold">Username</span>
+                    <input type="text" name="username" th:field="*{username}"
+                        class="border border-red-300 shadow p-3 w-full rounded" />
+                </label>
+
+                <label class="flex flex-col gap-2">
+                    <span class="font-semibold">Email</span>
+                    <input type="email" name="email" th:field="*{email}"
+                        class="border border-red-300 shadow p-3 w-full rounded" />
+                </label>
+
+                <label class="flex flex-col gap-2">
+                    <span class="font-semibold">Password</span>
+                    <input type="password" name="password" th:field="*{password}"
+                        class="border border-red-300 shadow p-3 w-full rounded" />
+                </label>
+
+                <label class="flex flex-col gap-2">
+                    <span class="font-semibold">USN</span>
+                    <input type="text" name="usn" th:field="*{usn}"
+                        class="border border-red-300 shadow p-3 w-full rounded" />
+                </label>
+
+                <label class="flex flex-col gap-2">
+                    <span class="font-semibold">Semester</span>
+                    <input type="number" name="sem" th:field="*{sem}"
+                        class="border border-red-300 shadow p-3 w-full rounded" />
+                </label>
+
+                <label class="flex flex-col gap-2">
+                    <span class="font-semibold">Choose Department</span>
+                    <select name="departmentid" th:field="*{departmentid}" class="border border-red-300 shadow p-3 w-full rounded">
+                        <option th:each="department : ${departments}" th:value="${department.id}"
+                            th:text="${department.name}">
+                        </option>
+                    </select>
+                </label>
+                <button class="bg-blue-700 px-4 py-2 rounded mx-auto text-white">Add Student</button>
+            </form>
+        </div>
+    </main>
+
+
+    <!-- Include Footer Fragment -->
+    <div th:replace="~{fragments/footer}"></div>
+
+</body>
+
+</html>

@@ -5,7 +5,6 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
-import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -75,18 +74,16 @@ public class ProfessorService {
 		
 	}
 
-	public List<String> getCoursesByProfessor(Professor professor) {
-		// TODO Auto-generated method stub
-		
-		
-		return courseRepo.findCourseNamesByProfessor(professor);
+	public List<Course> getCoursesByProfessor(Professor professor) {		
+		return courseRepo.findCourseByProfessor(professor);
 	}
 
-	public List<String> getNotesByCourseId(Long courseId) {
-		// TODO Auto-generated method stub
+	public List<Notes> getNotesByCourseId(Long courseId) {
 		return notesRepo.findNotesByCourseId(courseId);
 	}
 	
-	
 
+	public List<Professor> getAllProfessors() {
+		return professorRepo.findAll();
+	}
 }

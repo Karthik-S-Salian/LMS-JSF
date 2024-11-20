@@ -11,6 +11,6 @@ import com.example.LearningManagementSystem.model.Notes;
 
 @Repository
 public interface NotesRepo extends JpaRepository<Notes,Long>{
-	@Query("SELECT n.description FROM Notes n WHERE n.course.id = :courseId")
-    List<String> findNotesByCourseId(@Param("courseId") Long courseId);
+	@Query("SELECT n FROM Notes n WHERE n.course.id = :courseId")
+    List<Notes> findNotesByCourseId(@Param("courseId") Long courseId);
 }

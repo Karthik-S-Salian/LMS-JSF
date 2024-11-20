@@ -1,0 +1,83 @@
+<!-- src/main/resources/templates/contact.html -->
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LMS</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <title>Contact Page</title>
+</head>
+
+<body>
+    <div th:replace="~{fragments/header}"></div>
+
+    <main class="mt-12 w-full flex">
+        <div th:replace="~{fragments/sidebar}"></div>
+        <div class="flex-grow p-4 flex flex-col gap-2">
+            <div>
+                <div>
+                    <span class="text-xl font-semibold">Course: </span>
+                    <span th:text="${course.name}" class="capitalize">course name</span>
+                </div>
+                <div>
+                    <span class="text-xl font-semibold">Department: </span>
+                    <span th:text="${course.department.name}" class="capitalize">course name</span>
+                </div>
+                <div>
+                    <span class="text-xl font-semibold">Professor: </span>
+                    <span th:text="${course.professor.user.username}" class="capitalize">course name</span>
+                </div>
+            </div>
+            <h1 class="text-xl font-bold">Students</h1>
+
+            <table class="table-auto w-full bg-blue-100">
+                <thead class="bg-blue-300 text-white">
+                    <tr>
+                        <th class="p-4 text-left">#</th>
+                        <th class="p-4 text-left">Username</th>
+                        <th class="p-4 text-left">Email</th>
+                        <th class="p-4 text-left">USN</th>
+                        <th class="p-4 text-left">Semester</th>
+                        <th class="p-4 text-left">Department</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="student, iterStat : ${students}">
+                        <td class="p-4" th:text="${iterStat.index + 1}">1</td>
+                        <td class="p-4" th:text="${student.user.username}">Username</td>
+                        <td class="p-4" th:text="${student.user.email}">Email</td>
+                        <td class="p-4" th:text="${student.usn}">USN</td>
+                        <td class="p-4" th:text="${student.sem}">Semester</td>
+                        <td class="p-4" th:text="${student.department.name}">Department</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <!-- Form to Add New Student -->
+            <form th:object="${enrollForm}" action="@{'/admin/courses/{id}/enroll(id=${course.id})'}" method="post"
+                class="flex flex-col gap-4 mt-10 mx-auto max-w-[500px]">
+                <h3 class="text-3xl font-bold">Enroll Student</h3>
+
+                <input type="text" name="name" th:field="*{courseId}" value="${course.id}" />
+
+                <label class="flex flex-col gap-2">
+                    <span class="font-semibold">Choose Student</span>
+                    <select name="studentId" th:field="*{studentId}"
+                        class="border border-red-300 shadow p-3 w-full rounded">
+                        <option th:each="student : ${students}" th:value="${student.id}"
+                            th:text="${student.user.username}">
+                        </option>
+                    </select>
+                </label>
+                <button class="bg-blue-700 px-4 py-2 rounded mx-auto text-white">Enroll Student</button>
+            </form>
+        </div>
+    </main>
+
+    <div th:replace="~{fragments/footer}"></div>
+
+</body>
+
+</html>

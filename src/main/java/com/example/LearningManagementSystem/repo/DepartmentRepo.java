@@ -10,9 +10,6 @@ import com.example.LearningManagementSystem.model.Professor;
 public interface DepartmentRepo extends JpaRepository<Department,Long> {
 
 	boolean existsByName(String name);
-
-	
-
 	Department findByProfessor(Professor professor);
 
 }

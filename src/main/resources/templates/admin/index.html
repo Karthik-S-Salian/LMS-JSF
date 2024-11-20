@@ -1,0 +1,31 @@
+<!-- src/main/resources/templates/contact.html -->
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LMS</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <title>Contact Page</title>
+</head>
+
+<body>
+
+    <!-- Include Header Fragment -->
+    <div th:replace="~{fragments/header}"></div>
+
+    <main class="mt-12 w-full flex">
+        <div th:replace="~{fragments/sidebar}"></div>
+        <div class="flex-grow p-4">
+            <h1 class="text-black">Welcome admin</h1>
+        </div>
+    </main>
+
+    
+    <!-- Include Footer Fragment -->
+    <div th:replace="~{fragments/footer}"></div>
+
+</body>
+
+</html>
